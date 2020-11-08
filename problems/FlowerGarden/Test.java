@@ -15,13 +15,34 @@ public class Test {
 	private static boolean runTest(int[] input0, int[] input1, int[] input2, int[] expectedResult){
 		FlowerGarden instance = new FlowerGarden();
 		int[] res = instance.getOrdering(input0, input1, input2);
-		if(expectedResult[0] == res[0])
-			return true;
-		else{
+		if(expectedResult[0] != res[0]){
 			System.out.println("Error for: " + Arrays.toString(input0));
 
 			System.out.println("expected result: " + Arrays.toString(expectedResult) + ", actual result: " + Arrays.toString(res));
 			return false;
 		}
+		
+		instance = new FlowerGarden();
+		int[] height = new int[]{1,4,67,3,5,33,123,34,22,77,121,89};
+		int[] bloom = new int[]{1,20,3,40,5,60,7,80,9,100,110,12};
+		int[] wilt =  new int[] {3,25,31,43,15,61,17,180,9,103,119,126};
+		
+		
+		for (int i = 0; i < 10; i ++) {
+			instance.getOrdering(height, bloom, wilt);
+		}
+		int count = 10;
+		for (;;) {
+			long begin = System.currentTimeMillis();
+			for (int i = 0; i < count; i ++)
+				instance.getOrdering(height, bloom, wilt);
+			long end = System.currentTimeMillis();
+			if ((end - begin) < 10000) {
+				count *= 2;
+				continue;
+			}
+			System.out.println("Time: "+ ((double)(end - begin) / count));
+}
+
 	}
 }
